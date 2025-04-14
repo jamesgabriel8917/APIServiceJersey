@@ -1,4 +1,4 @@
-package com.demo;
+package com.demo.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
