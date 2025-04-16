@@ -1,11 +1,15 @@
 package com.demo.repository;
 
+import com.demo.config.DBUtil;
 import com.demo.model.User;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
+    Connection conn = DBUtil.getConnection();
+
 
     List<User> users;
 
