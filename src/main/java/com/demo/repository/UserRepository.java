@@ -3,37 +3,55 @@ package com.demo.repository;
 import com.demo.config.DBUtil;
 import com.demo.model.User;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
     Connection conn = DBUtil.getConnection();
 
-
-    List<User> users;
-
-    public UserRepository(){
-        users = new ArrayList<>();
-        User user = new User();
-        user.setName("Alien");
-        user.setId(1234322);
-
-        User user2 = new User();
-        user2.setName("Alien");
-        user2.setId(12322);
-
-        users.add(user);
-        users.add(user2);
+    public UserRepository() throws Exception {
 
     }
 
-//    public User getUser(int id){
-//
-//        return users.;
-//    }
+    public User CreateUser(User user) throws SQLException{
 
-    public List<User> getUsers() {
+        String sql = "INSERT INTO tb_users (id, name) VALUES (?, ? )";
+
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, user.getId());
+        ps.setString(2, user.getName());
+
+        ps.executeQuery();
+
+        return user;
+    }
+
+    public List<User> ListUsers() throws SQLException {
+
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM tb_users;";
+        Statement st = conn.createStatement();
+        ResultSet res = st.executeQuery(sql);
+
+        while (res.next()){
+            User user = new User(res.getInt("id"), res.getString("name"));
+            users.add(user);
+        }
+
         return users;
     }
+
+    public User ListUser(int id) throws SQLException {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM tb_users WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id); // substitui o primeiro "?" pelo valor de 'id'
+
+        return (User) ps.executeQuery(sql);
+
+    }
+
+
+
 }

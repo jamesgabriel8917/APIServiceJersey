@@ -8,6 +8,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Path("user")
@@ -15,14 +16,14 @@ public class UserResources {
 
     UserRepository userRepository = new UserRepository();
 
+    public UserResources() throws Exception {
+    }
+
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public User getUser(){
-        User user = new User();
-        user.setName("Alien");
-        user.setId(1234322);
 
-        return user;
+        return new User(123444, "aaaaa");
     }
 
     @POST
@@ -31,8 +32,8 @@ public class UserResources {
         System.out.println("User created");
         return user;
     }
-    public List<User> getUsers(){
-        return userRepository.getUsers();
+    public List<User> getUsers() throws SQLException {
+        return userRepository.ListUsers();
     }
 
 
