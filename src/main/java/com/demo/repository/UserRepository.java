@@ -52,6 +52,16 @@ public class UserRepository {
 
     }
 
+    public void UpdateUser(User user) throws SQLException {
+        String sql = "UPDATE tb_users SET (name = ? ) WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, user.getName());
+        ps.setInt(2, user.getId()); // substitui o primeiro "?" pelo valor de 'id'
+
+        ps.executeQuery(sql);
+    }
 
 
 }
+
+

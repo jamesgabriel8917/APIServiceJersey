@@ -2,10 +2,7 @@ package com.demo.resources;
 
 import com.demo.model.User;
 import com.demo.repository.UserRepository;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
 import java.sql.SQLException;
@@ -21,6 +18,7 @@ public class UserResources {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
+    @Path("get")
     public User getUser(){
 
         return new User(123444, "aaaaa");
@@ -32,6 +30,9 @@ public class UserResources {
         System.out.println("User created");
         return user;
     }
+
+    @PUT
+    @Path("update")
     public List<User> getUsers() throws SQLException {
         return userRepository.ListUsers();
     }
